@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<!-- saved from url=(0047)http://bl.ocks.org/oriolbx/688c63b865e7045e9f90 -->
+<html data-ember-extension="1"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=1000">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@mbostock">
+<meta property="og:url" content="http://bl.ocks.org/oriolbx/688c63b865e7045e9f90">
+<meta property="og:title" content="cartodb.js: named maps, toggle layers and hover infowindow">
+<meta property="og:description" content="oriolbx’s Block 688c63b865e7045e9f90">
+<title>cartodb.js: named maps, toggle layers and hover infowindow - bl.ocks.org</title>
+<link rel="icon" href="http://bl.ocks.org/favicon.png">
+<style>
+
+@import url("/style.css");
+
+</style>
+
+</head><body><header>
+  <div class="column">
+    <div class="navigation">
+      <a href="http://bl.ocks.org/">Popular</a>
+      / <a href="http://bl.ocks.org/-/about">About</a>
+    </div>
+    <a class="user" href="http://bl.ocks.org/oriolbx"><img class="avatar" src="./carto-oliver_files/11177693" width="30" height="30">oriolbx</a>’s
+    Block <a class="gist gist-id self" title="View Gist on GitHub." href="https://gist.github.com/oriolbx/688c63b865e7045e9f90">688c63b865e7045e9f90</a>    <div class="date">Updated January 18, 2016</div>
+  </div>
+</header>
+
+<div class="column">
+  <h1>cartodb.js: named maps, toggle layers and hover infowindow</h1>
+  <div class="index">
+    <iframe sandbox="allow-popups allow-scripts allow-forms allow-same-origin" src="./carto-oliver_files/saved_resource.html" marginwidth="0" marginheight="0" style="height:500px;" scrolling="no"></iframe>
+  </div>
+  <div class="index-pop">
+    <a target="_blank" title="Open Block 688c63b865e7045e9f90 a new window." href="http://bl.ocks.org/oriolbx/raw/688c63b865e7045e9f90">Open<svg height="16" width="12"><path d="M11 10h1v3c0 0.55-0.45 1-1 1H1c-0.55 0-1-0.45-1-1V3c0-0.55 0.45-1 1-1h3v1H1v10h10V10zM6 2l2.25 2.25-3.25 3.25 1.5 1.5 3.25-3.25 2.25 2.25V2H6z"></path></svg></a>
+  </div>
+  <div class="gist-readme" data-key=""></div>
+  <div class="gist-sources">
+    <div class="gist-source" data-key="index.html">
+      <h2>index.html<a name="index.html" class="anchor" href="http://bl.ocks.org/oriolbx/688c63b865e7045e9f90#index.html">#</a></h2>
+      <pre><code class="html xml"><span class="doctype">&lt;!DOCTYPE html&gt;</span>
+<span class="tag">&lt;<span class="title">html</span>&gt;</span>
+  <span class="tag">&lt;<span class="title">head</span>&gt;</span>
+ 
+    <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">name</span>=<span class="value">"viewport"</span> <span class="attribute">content</span>=<span class="value">"initial-scale=1.0, user-scalable=no"</span> /&gt;</span>
+    <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">http-equiv</span>=<span class="value">"content-type"</span> <span class="attribute">content</span>=<span class="value">"text/html; charset=UTF-8"</span>/&gt;</span>
+    <span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"shortcut icon"</span> <span class="attribute">href</span>=<span class="value">"http://carto.com/assets/favicon.ico"</span> /&gt;</span>
+    <span class="tag">&lt;<span class="title">style</span>&gt;</span><span class="css">
+      <span class="tag">html</span>, <span class="tag">body</span>, <span class="id">#map</span> <span class="rules">{
+        <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">100</span>%</span>;</span>
+        <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">0</span></span>;</span>
+        <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0</span></span>;</span>
+      <span class="rule">}</span></span>
+      <span class="class">.buttons</span> <span class="rules">{
+          <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">50</span>px</span>;</span>
+          <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">100</span>px</span>;</span>
+          <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">rgba(<span class="number">0</span>,<span class="number">255</span>,<span class="number">255</span>,<span class="number">0.8</span>)</span></span>;</span>
+          <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span>;</span>
+          <span class="rule"><span class="attribute">top</span>:<span class="value"> <span class="number">20</span>px</span>;</span>
+          <span class="rule"><span class="attribute">right</span>:<span class="value"> <span class="number">20</span>px</span>;</span>
+          <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">5</span>px</span>;</span>
+          <span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="number">1</span>px solid <span class="hexcolor">#FFF</span></span>;</span>
+          <span class="rule"><span class="attribute">border-radius</span>:<span class="value"> <span class="number">5</span>px</span>;</span>
+          <span class="rule"><span class="attribute">cursor</span>:<span class="value"> pointer</span>;</span>
+      <span class="rule">}</span></span>
+    </span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+
+    <span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"stylesheet"</span> <span class="attribute">href</span>=<span class="value">"http://libs.cartocdn.com/cartodb.js/v3/3.15/themes/css/cartodb.css"</span> /&gt;</span>
+    <span class="comment">&lt;!--[if lte IE 8]&gt;
+        &lt;link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/themes/css/cartodb.ie.css" /&gt;
+    &lt;![endif]--&gt;</span>
+
+  <span class="tag">&lt;/<span class="title">head</span>&gt;</span>
+  <span class="tag">&lt;<span class="title">body</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"map"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"layer0"</span> <span class="attribute">class</span>=<span class="value">"buttons"</span> <span class="attribute">data</span>=<span class="value">"0"</span>&gt;</span>Show/hide Europe<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"layer1"</span> <span class="attribute">class</span>=<span class="value">"buttons"</span> <span class="attribute">data</span>=<span class="value">"1"</span> <span class="attribute">style</span>=<span class="value">"top: 102px; background: rgba(0,255,0,0.8);"</span>&gt;</span>Show/hide World<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"layer1"</span> <span class="attribute">class</span>=<span class="value">"buttons"</span> <span class="attribute">data</span>=<span class="value">"2"</span> <span class="attribute">style</span>=<span class="value">"top: 160px; background: rgba(255,0,0,0.8);"</span>&gt;</span>Show/hide China<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+    
+
+   
+
+    <span class="comment">&lt;!-- include cartodb.js library --&gt;</span>
+    <span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"</span>&gt;</span><span class="javascript"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="javascript">
+
+      <span class="function"><span class="keyword">function</span> <span class="title">main</span><span class="params">()</span> {</span>
+
+        <span class="comment">// create leaflet map</span>
+        <span class="keyword">var</span> map = L.map(<span class="string">'map'</span>, { 
+          zoomControl: <span class="literal">false</span>,
+          scrollWheelZoom: <span class="literal">false</span>,
+          center: [<span class="number">43</span>, <span class="number">0</span>],
+          zoomControl: <span class="literal">true</span>,
+          zoom: <span class="number">2</span>
+        })
+
+        <span class="comment">// add a base layer</span>
+        L.tileLayer(<span class="string">'http://tile.stamen.com/toner/{z}/{x}/{y}.png'</span>, {
+          attribution: <span class="string">'Stamen'</span>
+        }).addTo(map);
+
+        <span class="keyword">var</span> namedLayerSource = {
+          user_name: <span class="string">'oboix'</span>,
+          type: <span class="string">'namedmap'</span>,
+          named_map: {
+             name: <span class="string">"toggle_named_maps_multilayer"</span>,
+               layers: [{
+                 layer_name: <span class="string">"europe"</span>
+
+                 
+                },
+                {
+                  layer_name: <span class="string">"world"</span>
+                  
+                },
+                {
+                  layer_name: <span class="string">"world_1"</span>
+                  
+                }
+                ]
+              }
+        }
+
+        <span class="comment">// add cartodb layer with one sublayer</span>
+        cartodb.createLayer(map, namedLayerSource)
+          .addTo(map)
+          .done(<span class="function"><span class="keyword">function</span><span class="params">(layer)</span> {</span>
+              
+              <span class="comment">// Enable interactions events for all sublayers</span>
+              <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; layer.getSubLayerCount(); ++i ) {
+
+                  layer.getSubLayer(i).on(<span class="string">'featureOver'</span>, <span class="function"><span class="keyword">function</span><span class="params">(e, pos, pixel, data)</span> {</span>
+                      console.log(<span class="string">"Event #"</span> + data.cartodb_id + <span class="string">", name "</span> + data.admin);
+                  });
+                  <span class="comment">// infowindow</span>
+                  cdb.vis.Vis.addInfowindow(map,layer.getSubLayer(i),[<span class="string">'cartodb_id'</span>,<span class="string">'name'</span>]);
+                  <span class="comment">// tooltip definition with createLayer</span>
+                           <span class="keyword">var</span> testTooltip = layer.leafletMap.viz.addOverlay({
+                              type: <span class="string">'tooltip'</span>,
+                              layer: layer.getSubLayer(i),
+                              template: <span class="string">'&lt;div class="cartodb-tooltip-content-wrapper"&gt;&lt;p&gt;{{cartodb_id}}&lt;/p&gt;&lt;/div&gt;'</span>, 
+                              width: <span class="number">200</span>,
+                              position: <span class="string">'bottom|right'</span>,
+                              fields: [{ name: <span class="string">'cartodb_id'</span> }]
+                            });
+                            $(<span class="string">'body'</span>).append(testTooltip.render().el);
+                            
+                          
+
+              }
+            console.log(layer.getSubLayerCount());
+            <span class="keyword">var</span> toggle = <span class="literal">false</span>;
+
+            $(<span class="string">".buttons"</span>).on(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span><span class="params">(e)</span> {</span>
+                <span class="keyword">var</span> layerNum = $(e.target).attr(<span class="string">'data'</span>);
+                toggle = layer.getSubLayer(layerNum).toggle();
+                console.log(<span class="string">"layer "</span> + layerNum + <span class="string">" toggled: "</span> + toggle);
+            });
+        })
+        .error(<span class="function"><span class="keyword">function</span><span class="params">(err)</span> {</span>
+            console.log(<span class="string">"error: "</span> + err);
+        });
+      }
+
+      window.onload = main; 
+
+    </span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+
+  <span class="tag">&lt;/<span class="title">body</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">html</span>&gt;</span></code></pre>
+    </div>
+    <div class="gist-source" data-key="config.json">
+      <h2>config.json<a name="config.json" class="anchor" href="http://bl.ocks.org/oriolbx/688c63b865e7045e9f90#config.json">#</a></h2>
+      <pre><code class="javascript">{
+  <span class="string">"version"</span>: <span class="string">"0.0.1"</span>,
+  <span class="string">"name"</span>: <span class="string">"toggle_named_maps_multilayer"</span>,
+  <span class="string">"auth"</span>: {
+    <span class="string">"method"</span>: <span class="string">"open"</span>
+    
+  },
+  <span class="string">"placeholders"</span> : {
+    <span class="string">"layer0"</span>: {
+      <span class="string">"type"</span>: <span class="string">"number"</span>,
+      <span class="string">"default"</span>: <span class="number">1</span>
+    },
+    <span class="string">"layer1"</span>: {
+      <span class="string">"type"</span>: <span class="string">"number"</span>,
+      <span class="string">"default"</span>: <span class="number">1</span>
+    },
+     <span class="string">"layer2"</span>: {
+      <span class="string">"type"</span>: <span class="string">"number"</span>,
+      <span class="string">"default"</span>: <span class="number">1</span>
+    }
+  },
+  <span class="string">"layergroup"</span>: {
+    <span class="string">"version"</span>: <span class="string">"1.0.1"</span>,
+    <span class="string">"layers"</span>: [
+      {
+        <span class="string">"type"</span>: <span class="string">"cartodb"</span>,
+        <span class="string">"options"</span>: {
+          <span class="string">"cartocss_version"</span>: <span class="string">"2.1.1"</span>,
+          <span class="string">"cartocss"</span>: <span class="string">"#european_1_copy{polygon-fill: #FF6600;polygon-opacity: 0.7;line-color: #FFF;line-width: 0.5;line-opacity: 1;}"</span>,
+          <span class="string">"sql"</span>: <span class="string">" SELECT * FROM european_1_copy where &lt;%= layer0 %&gt; = 1"</span>,
+           <span class="string">"interactivity"</span>: [<span class="string">"cartodb_id"</span>, <span class="string">"admin"</span>]
+        }
+      },
+      {
+        <span class="string">"type"</span>: <span class="string">"cartodb"</span>,
+        <span class="string">"options"</span>: {
+          <span class="string">"cartocss_version"</span>: <span class="string">"2.1.1"</span>,
+          <span class="string">"cartocss"</span>: <span class="string">"#world_borders_hd{polygon-fill: #136400;polygon-opacity: 1;line-color: #FFF;line-width: 0.5;line-opacity: 1;}"</span>,
+          <span class="string">"sql"</span>: <span class="string">"SELECT * FROM world_borders_hd where &lt;%= layer1 %&gt; = 1"</span>
+          
+          
+        }
+      },
+      {
+        <span class="string">"type"</span>: <span class="string">"cartodb"</span>,
+        <span class="string">"options"</span>: {
+          <span class="string">"cartocss_version"</span>: <span class="string">"2.1.1"</span>,
+          <span class="string">"cartocss"</span>: <span class="string">"#world_borders_hd{polygon-fill: #FF0000;polygon-opacity: 1;line-color: #FFF;line-width: 0.5;line-opacity: 1;}"</span>,
+          <span class="string">"sql"</span>: <span class="string">"SELECT * FROM world_borders_hd where &lt;%= layer2 %&gt; = 1 AND cartodb_id = 43"</span>
+          
+          
+        }
+      }
+    ]
+  }
+}  </code></pre>
+    </div>
+  </div>
+  <div class="gist-license">
+    <h2>LICENSE<a name="license" class="anchor" href="http://bl.ocks.org/oriolbx/688c63b865e7045e9f90#license">#</a></h2>
+    This block appears to have <a target="_blank" href="http://choosealicense.com/no-license/">no license</a>. Please contact <a target="_blank" href="https://github.com/oriolbx">the author</a> to request a license.
+  </div>
+</div>
+
+<script src="./carto-oliver_files/d3.v3.min.js"></script>
+<script src="./carto-oliver_files/highlight.min.js"></script>
+<script>
+
+var gist = {"public":true,"sha":"174c82b7833945022cf6c0ba16dbf96d6c409bf3","files":{"config.json":{"language":"JSON","type":"application/json","filename":"config.json","size":1490,"sha":"4d68e237f42ada980a7b60a87a7c1ace93e7b29c"},"index.html":{"language":"HTML","type":"text/html","filename":"index.html","size":4163,"sha":"ec551668324645dcb208c52a3b4fe74fdf2adea2"}},"created_at":"2016-01-18T12:10:16Z","updated_at":"2016-01-18T12:14:30Z","description":"cartodb.js: named maps, toggle layers and hover infowindow","owner":{"login":"oriolbx"},"id":"688c63b865e7045e9f90"};
+
+var files = d3.values(gist.files);
+
+d3.select(".gist-readme")
+    .data(files, function(d) { return d ? d.filename : this.getAttribute("data-key"); })
+    .each(function(d) {
+      var readme = d3.select(this);
+      d3.text("/oriolbx/raw/688c63b865e7045e9f90/174c82b7833945022cf6c0ba16dbf96d6c409bf3/" + d.filename, function(error, content) {
+        if (error) content = "Sorry, an error occurred.";
+        readme.html(new Showdown.converter().makeHtml(content));
+        readme.selectAll("code").each(function() { hljs.highlightBlock(this); });
+      });
+    });
+
+d3.selectAll(".gist-source")
+    .data(files, function(d) { return d ? d.filename : this.getAttribute("data-key"); })
+  .select("code")
+    .attr("class", function(d) { return d.language && (d.language === "JSON" ? "javascript" : d.language.toLowerCase()); })
+    .each(function(d) {
+      var code = d3.select(this);
+      d3.text("/oriolbx/raw/688c63b865e7045e9f90/174c82b7833945022cf6c0ba16dbf96d6c409bf3/" + (d.filename === "index.html" ? "" : d.filename), function(error, content) {
+        if (error) content = "Sorry, an error occurred.";
+        code.text(content);
+        hljs.highlightBlock(code.node());
+      });
+    });
+
+</script>
+
+<script>
+
+GoogleAnalyticsObject = "ga", ga = function() { ga.q.push(arguments); }, ga.q = [], ga.l = +new Date;
+ga("create", "UA-48272912-1", "auto");
+ga("send", "pageview");
+
+</script>
+<script async="" src="./carto-oliver_files/analytics.js"></script>
+</body></html>
