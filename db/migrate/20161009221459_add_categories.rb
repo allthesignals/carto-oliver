@@ -1,11 +1,7 @@
 class AddCategories < ActiveRecord::Migration[5.0]
   def self.up
-    create_table :tables do |t|
+    create_table :categories do |t|
       t.string :name
-      t.string :table_name
-      t.string :description
-
-      t.boolean :is_geometric
 
       t.integer :parent_id, :null => true, :index => true
       t.integer :lft, :null => false, :index => true
@@ -18,6 +14,6 @@ class AddCategories < ActiveRecord::Migration[5.0]
   end
 
   def self.down
-    drop_table :tables
+    drop_table :categories
   end
 end
