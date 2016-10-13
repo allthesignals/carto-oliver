@@ -25,10 +25,11 @@ gem 'jbuilder', '~> 2.5'
 gem 'bourbon'
 
 gem 'pg'
-gem 'awesome_nested_set'
+
 gem 'dotenv'
 gem 'administrate', github: 'pablo-co/administrate', branch: 'rails5'
 gem 'jsonapi-resources'
+gem 'closure_tree'
 # Use PostgreSQL as the database for Active Record
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'

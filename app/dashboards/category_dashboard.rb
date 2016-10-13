@@ -14,10 +14,12 @@ class CategoryDashboard < Administrate::BaseDashboard
     id: Field::Number,
     name: Field::String,
     parent_id: Field::Number,
-    lft: Field::Number,
-    rgt: Field::Number,
-    depth: Field::Number,
-    children_count: Field::Number,
+    # lft: Field::Number,
+    # rgt: Field::Number,
+    # depth: Field::Number,
+    # children_count: Field::Number,
+    # sort_order: Field::Number,
+    # depth: Field::Number,
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -26,40 +28,31 @@ class CategoryDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
-    :parent,
-    :children,
+    :name,
     :tables,
-    :id,
+    :parent,
+    # :sort_order,
+    # :depth,
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = [
+    :name,
     :parent,
     :children,
     :tables,
     :id,
-    :name,
-    :parent_id,
-    :lft,
-    :rgt,
-    :depth,
-    :children_count,
   ].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
+    :name,
     :parent,
     :children,
     :tables,
-    :name,
-    :parent_id,
-    :lft,
-    :rgt,
-    :depth,
-    :children_count,
   ].freeze
 
   # Overwrite this method to customize how categories are displayed

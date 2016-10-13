@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161011005824) do
+ActiveRecord::Schema.define(version: 20161013001814) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,13 +18,17 @@ ActiveRecord::Schema.define(version: 20161011005824) do
   create_table "categories", force: :cascade do |t|
     t.string  "name"
     t.integer "parent_id"
-    t.integer "lft",                        null: false
-    t.integer "rgt",                        null: false
-    t.integer "depth",          default: 0, null: false
-    t.integer "children_count", default: 0, null: false
-    t.index ["lft"], name: "index_categories_on_lft", using: :btree
+    t.integer "sort_order"
+    t.integer "computed_depth"
     t.index ["parent_id"], name: "index_categories_on_parent_id", using: :btree
-    t.index ["rgt"], name: "index_categories_on_rgt", using: :btree
+  end
+
+  create_table "category_hierarchies", id: false, force: :cascade do |t|
+    t.integer "ancestor_id",   null: false
+    t.integer "descendant_id", null: false
+    t.integer "generations",   null: false
+    t.index ["ancestor_id", "descendant_id", "generations"], name: "category_anc_desc_idx", unique: true, using: :btree
+    t.index ["descendant_id"], name: "category_desc_idx", using: :btree
   end
 
   create_table "tables", force: :cascade do |t|
