@@ -11,8 +11,12 @@ class TableDashboard < Administrate::BaseDashboard
     id: Field::Number,
     name: Field::String,
     table_name: Field::String,
-    description: Field::String,
+    description: Field::Text,
+    sql: Field::String,
+    css: Field::Text,
     category: Field::BelongsTo,
+    position: Field::Number,
+    visible: Field::Boolean
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -23,8 +27,11 @@ class TableDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = [
     :id,
     :name,
+    :visible,
     :table_name,
     :description,
+    :sql,
+    :position,
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -35,6 +42,9 @@ class TableDashboard < Administrate::BaseDashboard
     :table_name,
     :description,
     :category,
+    :sql,
+    :visible,
+    :css,
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -45,6 +55,9 @@ class TableDashboard < Administrate::BaseDashboard
     :table_name,
     :description,
     :category,
+    :sql,
+    :css,
+    :visible,
   ].freeze
 
   # Overwrite this method to customize how tables are displayed

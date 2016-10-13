@@ -1,0 +1,15 @@
+<div id="map"></div>
+<div id="nav-mobile" class="side-nav fixed" style="transform: translateX(0px);">
+  
+  <ul class="collection">
+    <li class="collection-item"><h4>Layers</h4></li>
+    <%- @tables.each do |table| %>
+      <li class="layer collection-item">
+          <input type="checkbox" id="<%= table.table_name%>" name="layer">
+          <label for="<%= table.table_name %>">
+            <%= table.name.blank? ? table.table_name : table.name %>
+          </label>
+      </li>
+    <%- end %>
+    </ul>
+</div>

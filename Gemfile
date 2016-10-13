@@ -28,8 +28,10 @@ gem 'pg'
 
 gem 'dotenv'
 gem 'administrate', github: 'MAPC/administrate', branch: 'rails5'
-gem 'jsonapi-resources'
+
 gem 'closure_tree'
+gem 'acts_as_list'
+gem 'materialize-sass'
 
 # Use PostgreSQL as the database for Active Record
 # Use Redis adapter to run Action Cable in production

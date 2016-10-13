@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161013001814) do
+ActiveRecord::Schema.define(version: 20161013183426) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,10 @@ ActiveRecord::Schema.define(version: 20161013001814) do
     t.string  "table_name"
     t.string  "description"
     t.integer "category_id"
+    t.integer "position"
+    t.text    "sql"
+    t.text    "css"
+    t.boolean "visible",     default: false
     t.index ["category_id"], name: "index_tables_on_category_id", using: :btree
   end
 

@@ -1,6 +1,15 @@
 class Category < ApplicationRecord
   has_closure_tree order: 'sort_order'
-  has_many :tables
+  has_many :tables, -> { order(position: :asc) }
+
+  # def self.json_hash_tree(tree)
+  #   tree.map { |parent, children| parent.to_hash(children) }
+  # end
+
+  # def to_hash(children)
+  #   children = children.map { |ea| self.class.json_hash_tree(ea) }
+  #   {name: self.name, responses: children}
+  # end
 
   # this is causing many issues with Administrate... 
   # it may be an issue with closure, however. 

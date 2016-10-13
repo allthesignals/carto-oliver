@@ -3,12 +3,17 @@
   <head>
     <title>CartoOliver</title>
     <%= csrf_meta_tags %>
-
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.15/themes/css/cartodb.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <script src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
   </head>
 
   <body>
-    <%= yield %>
+      <%= render 'shared/nav' %>
+      <%= yield %>
   </body>
 </html>

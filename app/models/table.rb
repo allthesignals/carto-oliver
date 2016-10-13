@@ -1,6 +1,9 @@
 class Table < ApplicationRecord
   # this is causing some problems with mass creating records
   # belongs_to :category 
+  acts_as_list scope: :category
+
+  after_initialize :set_default_values
   
   def self.sync
     #create new tables and delete old ones that don't exist
@@ -28,5 +31,10 @@ class Table < ApplicationRecord
 
   def self.old_tables
     self.pluck(:table_name) - carto_tables
+  end
+
+  def set_default_values
+    # Only set if time_zone IS NOT set
+    self.sql ||= "SELECT * FROM #{table_name}"
   end
 end
