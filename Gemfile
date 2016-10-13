@@ -27,9 +27,10 @@ gem 'bourbon'
 gem 'pg'
 
 gem 'dotenv'
-gem 'administrate', github: 'pablo-co/administrate', branch: 'rails5'
+gem 'administrate', github: 'MAPC/administrate', branch: 'rails5'
 gem 'jsonapi-resources'
 gem 'closure_tree'
+
 # Use PostgreSQL as the database for Active Record
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
@@ -42,6 +43,8 @@ gem 'closure_tree'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 group :development do
