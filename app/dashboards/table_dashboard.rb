@@ -52,7 +52,6 @@ class TableDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
     :name,
-    :table_name,
     :description,
     :category,
     :sql,
