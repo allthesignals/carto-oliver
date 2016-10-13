@@ -5,8 +5,6 @@ class AddCategories < ActiveRecord::Migration[5.0]
 
       t.integer :parent_id, :null => true, :index => true
       t.integer :sort_order
-
-      t.integer :computed_depth, :null => true
     end
   end
 

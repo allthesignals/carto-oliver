@@ -5,7 +5,7 @@ module Admin
     #
     # def index
     #   super
-    #   @resources = Category.all.paginate(10, params[:page])
+    #   @resources = Category.roots_and_descendants_preordered
     # end
 
     # Define a custom finder by overriding the `find_resource` method:
