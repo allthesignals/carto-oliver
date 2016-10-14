@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20161013183426) do
     t.string  "name"
     t.integer "parent_id"
     t.integer "sort_order"
+    t.integer "computed_depth"
     t.index ["parent_id"], name: "index_categories_on_parent_id", using: :btree
   end
 

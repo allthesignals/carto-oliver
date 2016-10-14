@@ -94,7 +94,7 @@ ol, ul {
 
 .side-nav {
   z-index: 100;
-  padding-top: 3em;
+  padding-top: 4.5em;
   // padding-left: 2em;
   right: 0;
   left: initial;
@@ -102,4 +102,8 @@ ol, ul {
 
 .side-nav.fixed {
   left: initial;
+}
+
+.side-nav .collapsible-body li.active, .side-nav.fixed .collapsible-body li.active {
+  background-color: rgba(0, 0, 0, 0.05);
 }
