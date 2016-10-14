@@ -16,4 +16,11 @@
 //= require map.js
 //= require_tree .
 
-
+$(document).ready(function() {
+  var config = {
+    menuWidth: 600, // Default is 240
+    edge: 'right',
+  };
+  $("#layers-button").sideNav(config);
+  $("#peek-layers-button").sideNav(config);
+});

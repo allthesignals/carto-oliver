@@ -1,20 +1,25 @@
 <div id="map"></div>
-<div id="nav-mobile" class="side-nav fixed" style="transform: translateX(0px);">
-  <h4 class="center-align">Layers</h4>
-  <ul class="collapsible" data-collapsible="expandable">
-    <%- @categories.each do |category| %>
-      <li>
-        <div class="collapsible-header"><%= category[:name] %></div>
-        <div class="collapsible-body">
-          <%= render  partial: 'tables', 
-                      locals: { tables: category[:tables] } if category[:tables]  %>
+<ul id="slide-out" class="side-nav" style="transform: translateX(0px);">
+  <li>
+    <h4 class="center-align">Select Layers</h4>
+  </li>
+  <li>
+  <li>
+    <ul class="collapsible" data-collapsible="expandable">
+      <%- @categories.each do |category| %>
+        <li>
+          <div class="collapsible-header"><%= category[:name] %></div>
+          <div class="collapsible-body">
+            <%= render  partial: 'tables', 
+                        locals: { tables: category[:tables], depth: category[:depth] } if category[:tables]  %>
 
-          <%- if category[:subcategories] %>
-            <%= render  partial: 'category', 
-                        locals: { subcategories: category[:subcategories] } %>
-          <%- end %>
-        </div>
-      </li>
-    <%- end %>
-  </ul>
-</div>
+            <%- if category[:subcategories] %>
+              <%= render  partial: 'category', 
+                          locals: { subcategories: category[:subcategories] } %>
+            <%- end %>
+          </div>
+        </li>
+      <%- end %>
+    </ul>
+  </li>
+</ul>

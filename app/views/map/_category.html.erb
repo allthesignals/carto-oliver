@@ -8,7 +8,7 @@
         <%= subcategory[:name] %>
       </div>
       <div class="collapsible-body">
-        <%= render partial: 'tables', locals: { tables: subcategory[:tables] } if subcategory[:tables]  %>
+        <%= render partial: 'tables', locals: { tables: subcategory[:tables], depth: subcategory[:depth] } if subcategory[:tables]  %>
         <%- if subcategory[:subcategories] %>
           <%= render partial: 'category', locals: { subcategories: subcategory[:subcategories] } %>
         <%- end %>

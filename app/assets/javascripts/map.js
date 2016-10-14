@@ -2,9 +2,11 @@ $(document).ready(function() {
   // cartodb.createVis('map', 'http://documentation.carto.com/api/v2/viz/2b13c956-e7c1-11e2-806b-5404a6a683d5/viz.json');
   var map = L.map('map', {
       zoomControl: true,
-      center: [42.3257277,-71.7348638],
-      zoom: 10
+      center: [42.3257277,-71.6],
+      zoom: 9
   });
+
+  map.zoomControl.setPosition('topright');
 
   var basemap = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
