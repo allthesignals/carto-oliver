@@ -11,7 +11,7 @@
           <div class="collapsible-header"><%= category[:name] %></div>
           <div class="collapsible-body">
             <%= render  partial: 'tables', 
-                        locals: { tables: category[:tables], depth: category[:depth] } if category[:tables]  %>
+                        locals: { tables: category[:tables], depth: category[:depth] } if category[:tables] || "No Results"  %>
 
             <%- if category[:subcategories] %>
               <%= render  partial: 'category', 
