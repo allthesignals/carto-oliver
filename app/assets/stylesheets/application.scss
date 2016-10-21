@@ -113,3 +113,9 @@ ol, ul {
 .side-nav .collapsible-body li.active, .side-nav.fixed .collapsible-body li.active {
   background-color: rgba(0, 0, 0, 0.05);
 }
+
+.collapsible {
+  border-right: 0px;
+  border-left: 0px;
+  box-shadow: none;
+}

@@ -1,13 +1,12 @@
-<div id="map"></div>
-<ul id="slide-out" class="side-nav" style="transform: translateX(0px);">
-  <li>
+<div class="row">
+  <div class="col s10" style="padding: 0;">
+    <div id="map"></div>
+  </div>
+  <div class="col s2" style="padding: 0;">
     <h4 class="center-align">Select Layers</h4>
-  </li>
-  <li>
-  <li>
-    <ul class="collapsible" data-collapsible="expandable">
+    <ul class="collapsible" data-collapsible="expandable" style="padding: 0; box-shadow: none;">
       <%- @categories.each do |category| %>
-        <li>
+        <li class="collection-item">
           <div class="collapsible-header"><%= category[:name] %></div>
           <div class="collapsible-body">
             <%= render  partial: 'tables', 
@@ -21,5 +20,5 @@
         </li>
       <%- end %>
     </ul>
-  </li>
-</ul>
+  </div>
+</div>
