@@ -1,15 +1,11 @@
 <div class="tables" style="margin-left: <%= (depth * 15) + 15 %>px">
   <ul class="collection">
-    <%- if tables.each do |table| %>
+    <%- tables.each do |table| %>
       <li class="layer collection-item" style="padding: 10px 20px;">
           <input type="checkbox" id="<%= table.table_name %>" name="layer">
           <label for="<%= table.table_name %>">
             <%= table.name.blank? ? table.table_name : table.name %>
           </label>
-      </li>
-    <% end.empty? %>
-      <li class="layer collection-item blue-grey-text text-lighten-3" style="padding: 10px 20px;">
-        No Layers
       </li>
     <% end %>
   </ul>
