@@ -12,12 +12,42 @@ $(document).ready(function() {
       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
   }).addTo(map);
 
+  var defaultCss = `
+    #layer['mapnik::geometry_type'=1] {
+      marker-width: 7;
+      marker-fill: #FFB927;
+      marker-fill-opacity: 0.9;
+      marker-line-color: #FFF;
+      marker-line-width:  1;
+      marker-line-opacity: 1;
+      marker-placement: point;
+      marker-type: ellipse;
+      marker-allow-overlap: true;
+    }
+    #layer['mapnik::geometry_type'=2] {
+      line-color: #3EBCAE;
+      line-width: 1.5;
+      line-opacity: 1;
+    }
+    #layer['mapnik::geometry_type'=3] {
+      polygon-fill: #374C70;
+      polygon-opacity: 0.9;
+      polygon-gamma: 0.5;
+      line-color: #FFF;
+      line-width: 1;
+      line-opacity: 0.5;
+      line-comp-op: soft-light;
+    }
+    `;
+
+    console.log(defaultCss);
+
   $.getJSON('/tables', function(data) {
     var layers = {};
     data.forEach(function(table) {
       layers[table.table_name] = {
         sql: table.sql,
-        cartocss: table.css
+        cartocss: table.css || defaultCss
       }
     });
     console.log(layers);
