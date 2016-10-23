@@ -33,7 +33,7 @@ gem 'closure_tree'
 gem 'acts_as_list'
 gem 'materialize-sass'
 
-gem 'semantic-ui-sass', github: 'doabit/semantic-ui-sass'
+gem 'semantic-ui-sass', github: 'MAPC/semantic-ui-sass'
 
 # Use PostgreSQL as the database for Active Record
 # Use Redis adapter to run Action Cable in production

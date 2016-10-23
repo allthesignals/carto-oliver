@@ -4,25 +4,28 @@
   </div>
 
   <div class="col s3" style="padding: 0;">
-    <h4 class="ui center aligned header">Select Layers</h4>
-    <div class="ui styled accordion" style="border-radius: 0;">
-      <%- @categories.each do |category| %>
-        <%- if category[:subcategories] || !category[:tables].empty? %>
-          <div class="title">
-            <i class="dropdown icon"></i>
-            <%= category[:name] %>
-          </div>  
-          <div class="content">
-            <%= render  partial: 'tables', 
-                        locals: { tables: category[:tables], depth: category[:depth] } unless category[:tables].empty?  %>
+    <div class="ui segment">
+      <div class="ui top attached label">Select Layers</div>
+      <div class="ui styled accordion" style="border-radius: 0;">
 
-            <%- if category[:subcategories] %>
-              <%= render  partial: 'category', 
-                          locals: { subcategories: category[:subcategories] } %>
-            <%- end %>
-          </div>
+        <%- @categories.each do |category| %>
+          <%- if category[:subcategories] || !category[:tables].empty? %>
+            <div class="title">
+              <i class="dropdown icon"></i>
+              <%= category[:name] %>
+            </div>  
+            <div class="content">
+              <%= render  partial: 'tables', 
+                          locals: { tables: category[:tables], depth: category[:depth] } unless category[:tables].empty?  %>
+
+              <%- if category[:subcategories] %>
+                <%= render  partial: 'category', 
+                            locals: { subcategories: category[:subcategories] } %>
+              <%- end %>
+            </div>
+          <%- end %>
         <%- end %>
-      <%- end %>
+      </div>
     </div>
   </div>
 </div>

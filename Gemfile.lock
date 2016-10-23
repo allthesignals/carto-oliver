@@ -16,8 +16,8 @@ GIT
       selectize-rails (~> 0.6)
 
 GIT
-  remote: git://github.com/doabit/semantic-ui-sass.git
-  revision: 119c166f490682c40fe0274f7d3ccb86e384fa0a
+  remote: git://github.com/MAPC/semantic-ui-sass.git
+  revision: 148b6d3fdcb6d7ca3d1922ede6d757ce750d051e
   specs:
     semantic-ui-sass (2.2.4.0)
       sass (>= 3.2)
