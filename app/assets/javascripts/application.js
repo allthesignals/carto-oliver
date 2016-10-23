@@ -14,13 +14,11 @@
 //= require jquery_ujs
 //= require materialize-sprockets
 //= require map.js
+//= require semantic-ui/accordion
 //= require_tree .
 
 $(document).ready(function() {
-  var config = {
-    menuWidth: 600, // Default is 240
-    edge: 'right',
-  };
-  $("#layers-button").sideNav(config);
-  $("#peek-layers-button").sideNav(config);
+  $('.ui.accordion')
+    .accordion()
+  ;
 });

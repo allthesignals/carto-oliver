@@ -2,23 +2,27 @@
   <div class="col s9" style="padding: 0;">
     <div id="map"></div>
   </div>
+
   <div class="col s3" style="padding: 0;">
-    <h4 class="center-align">Select Layers</h4>
-    <ul class="collapsible" data-collapsible="expandable" style="padding: 0; box-shadow: none;">
+    <h4 class="ui center aligned header">Select Layers</h4>
+    <div class="ui styled accordion" style="border-radius: 0;">
       <%- @categories.each do |category| %>
-        <li class="collection-item">
-          <div class="collapsible-header"><%= category[:name] %></div>
-          <div class="collapsible-body">
+        <%- if category[:subcategories] || !category[:tables].empty? %>
+          <div class="title">
+            <i class="dropdown icon"></i>
+            <%= category[:name] %>
+          </div>  
+          <div class="content">
             <%= render  partial: 'tables', 
-                        locals: { tables: category[:tables], depth: category[:depth] } if category[:tables] || "No Results"  %>
+                        locals: { tables: category[:tables], depth: category[:depth] } unless category[:tables].empty?  %>
 
             <%- if category[:subcategories] %>
               <%= render  partial: 'category', 
                           locals: { subcategories: category[:subcategories] } %>
             <%- end %>
           </div>
-        </li>
+        <%- end %>
       <%- end %>
-    </ul>
+    </div>
   </div>
 </div>

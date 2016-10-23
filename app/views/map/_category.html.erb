@@ -1,18 +1,16 @@
-<ul class="collapsible" data-collapsible="expandable">
+<div class="accordion">
   <%- subcategories.each do |subcategory| %>
-    <li>
-      <div class="collapsible-header">
-        <%- subcategory[:depth].times do %>
-        <%- end %>
-        <i class="material-icons" style="margin-left: <%= subcategory[:depth] * 15 %>px;">subdirectory_arrow_right</i>
+    <%- if subcategory[:subcategories] || !subcategory[:tables].empty? %>
+      <div class="title">
+        <i class="dropdown icon"></i>
         <%= subcategory[:name] %>
       </div>
-      <div class="collapsible-body">
+      <div class="content">
         <%= render partial: 'tables', locals: { tables: subcategory[:tables], depth: subcategory[:depth] } if subcategory[:tables]  %>
         <%- if subcategory[:subcategories] %>
           <%= render partial: 'category', locals: { subcategories: subcategory[:subcategories] } %>
         <%- end %>
       </div>
-    </li>
+    <%- end %>
   <%- end %>
-</ul>
+</div>
