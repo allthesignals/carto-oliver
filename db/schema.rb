@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161013183426) do
+ActiveRecord::Schema.define(version: 20161024212559) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,7 +19,6 @@ ActiveRecord::Schema.define(version: 20161013183426) do
     t.string  "name"
     t.integer "parent_id"
     t.integer "sort_order"
-    t.integer "computed_depth"
     t.index ["parent_id"], name: "index_categories_on_parent_id", using: :btree
   end
 
@@ -29,6 +28,14 @@ ActiveRecord::Schema.define(version: 20161013183426) do
     t.integer "generations",   null: false
     t.index ["ancestor_id", "descendant_id", "generations"], name: "category_anc_desc_idx", unique: true, using: :btree
     t.index ["descendant_id"], name: "category_desc_idx", using: :btree
+  end
+
+  create_table "maps", force: :cascade do |t|
+    t.string   "map_uuid"
+    t.string   "map_name"
+    t.integer  "position"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "tables", force: :cascade do |t|

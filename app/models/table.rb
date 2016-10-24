@@ -34,7 +34,7 @@ class Table < ApplicationRecord
   end
 
   def set_default_values
-    # Only set if time_zone IS NOT set
+    # Only set if sql IS NOT set
     self.sql ||= "SELECT * FROM #{table_name}"
   end
 end
